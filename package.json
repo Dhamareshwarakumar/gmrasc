@@ -1,0 +1,35 @@
+{
+  "name": "gmrasc",
+  "version": "1.0.0",
+  "description": "This is the website GMRIT ACM Student Chapter",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dhamareshwarakumar/gmrasc.git"
+  },
+  "keywords": [
+    "GMRIT",
+    "ACM",
+    "Events",
+    "Members",
+    "Register"
+  ],
+  "author": "Dhamareshwarakumar Gandikota",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Dhamareshwarakumar/gmrasc/issues"
+  },
+  "homepage": "https://github.com/Dhamareshwarakumar/gmrasc#readme",
+  "dependencies": {
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "mongoose": "^6.2.4"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
