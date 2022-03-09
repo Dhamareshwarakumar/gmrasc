@@ -1,0 +1,31 @@
+[{
+  "_id": {
+    "$oid": "6226f204f33b4a3bc8af5791"
+  },
+  "username": "18341a0537@gmrit.edu.in",
+  "encry_password": "0957a2ec2ac295dc0802d3bafc06788f7a4d08c4bb0d9caa384083910c04a1e3",
+  "salt": "94d6bbec-bb26-4a9f-a11f-810a204c49c3",
+  "role": 0,
+  "createdAt": {
+    "$date": "2022-03-08T06:04:52.798Z"
+  },
+  "updatedAt": {
+    "$date": "2022-03-08T06:04:52.798Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "62286b6301413737d6af08e8"
+  },
+  "username": "18341a0512@gmrit.edu.in",
+  "encry_password": "7bcc22c0de3caceec6d92eb0d3f7378b0b83956e14a9cb384b05eb88d2a1fa19",
+  "salt": "dd56370b-2e89-462e-8716-93583039a94a",
+  "role": 1,
+  "createdAt": {
+    "$date": "2022-03-09T08:54:59.196Z"
+  },
+  "updatedAt": {
+    "$date": "2022-03-09T10:31:03.633Z"
+  },
+  "__v": 0
+}]

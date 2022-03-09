@@ -1,0 +1,48 @@
+@version = HTTP/1.1
+@PORT = 3333
+@superadmin = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjowLCJ1c2VybmFtZSI6IjE4MzQxYTA1MzdAZ21yaXQuZWR1LmluIiwiaWQiOiI2MjI2ZjIwNGYzM2I0YTNiYzhhZjU3OTEiLCJpYXQiOjE2NDY4NDY2MDYsImV4cCI6MTY0Njg1MDIwNn0._n0WV8ePaOOj_MUUoLaxb3N0TsMut9uoxPFlV74sZB0
+
+@admin = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoxLCJ1c2VybmFtZSI6IjE4MzQxYTA1MTJAZ21yaXQuZWR1LmluIiwiaWQiOiI2MjI4NmI2MzAxNDEzNzM3ZDZhZjA4ZTgiLCJpYXQiOjE2NDY4NDQ3MjgsImV4cCI6MTY0Njg0ODMyOH0.z5_pi7XWRIPc3niztHVQLbrIwuKhDhGgIKC7MIPXndw
+
+
+# # Admin Login
+# POST http://127.0.0.1:{{PORT}}/api/admin/ {{version}}
+# Content-Type: application/json
+
+# {
+#     "username": "18341A0537@gmrit.edu.in",
+#     "password": "iamsuperadmin"
+# }
+
+
+# Read Admin List
+GET http://127.0.0.1:{{PORT}}/api/admin {{version}}
+Authorization: {{superadmin}}
+
+
+# # Update Admin Password
+# PUT http://127.0.0.1:{{PORT}}/api/admin {{version}}
+# Content-Type: application/json
+# Authorization: {{admin}}
+
+# {
+#     "username": "18341A0512@gmrit.edu.in",
+#     "password": "iamadmin"
+# }
+
+
+# # Create Admin
+# POST http://127.0.0.1:{{PORT}}/api/admin/createAdmin {{version}}
+# Content-Type: application/json
+# Authorization: {{superadmin}}
+
+# {
+#     "username": "18341A0513@gmrit.edu.in",
+#     "password": "iamadmin"
+# }
+
+
+# # DELETE Admin
+# DELETE http://127.0.0.1:{{PORT}}/api/admin/18341A0513@gmrit.edu.in {{version}}
+# Content-Type: application/json
+# Authorization: {{superadmin}}

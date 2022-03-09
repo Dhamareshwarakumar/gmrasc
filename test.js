@@ -17,7 +17,7 @@ require('./config/db');
 require('./config/passport_jwt')(passport);
 
 // Constants
-const PORT = process.env.PORT || 3333;
+const PORT = process.env.PORT || 4444;
 
 
 // Routes

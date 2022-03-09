@@ -24,3 +24,15 @@
 -   Authentication
 -   Email Sending
 -   Payment Gateway
+
+## Test Credentials
+
+### Super Admin
+
+    username: 18341A0537@gmrit.edu.in
+    password: iamsuperadmin
+
+### Admin
+
+    username: 18341A0512@gmrit.edu.in
+    password: iamadmin
