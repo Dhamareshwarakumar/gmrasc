@@ -22,6 +22,7 @@ const PORT = process.env.PORT || 3333;
 
 // Routes
 app.use('/api/admin', require('./routes/api/admin'));
+app.use('/api/events', require('./routes/api/events'));
 
 
 // Server

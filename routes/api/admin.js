@@ -77,7 +77,7 @@ router.post(
                     return res.status(400).json({ username: 'Admin not found' });
                 }
             })
-            .catch(err => res.status(500).json({ err: "INTERNAL SERVER ERROR" + err }));
+            .catch(err => res.status(500).json({ err: "INTERNAL SERVER ERROR" }));
     }
 );
 
@@ -162,7 +162,7 @@ router.post(
                                 return res.status(400).json({ msg: "Admin Creation Failed" });
                             }
                         })
-                        .catch(err => res.status(500).json({ err: "INTERNAL SERVER ERROR" + err }));
+                        .catch(err => res.status(500).json({ err: "INTERNAL SERVER ERROR" }));
                 }
             })
             .catch(err => res.status(500).json({ err: "INTERNAL SERVER ERROR" }));
