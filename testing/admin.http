@@ -1,23 +1,23 @@
 @version = HTTP/1.1
 @PORT = 3333
-@superadmin = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjowLCJ1c2VybmFtZSI6IjE4MzQxYTA1MzdAZ21yaXQuZWR1LmluIiwiaWQiOiI2MjI2ZjIwNGYzM2I0YTNiYzhhZjU3OTEiLCJpYXQiOjE2NDY4NDY2MDYsImV4cCI6MTY0Njg1MDIwNn0._n0WV8ePaOOj_MUUoLaxb3N0TsMut9uoxPFlV74sZB0
+@superadmin = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjowLCJ1c2VybmFtZSI6IjE4MzQxYTA1MzdAZ21yaXQuZWR1LmluIiwiaWQiOiI2MjI2ZjIwNGYzM2I0YTNiYzhhZjU3OTEiLCJpYXQiOjE2NDc0MzY5MjIsImV4cCI6MTY0NzQ0MDUyMn0.fyFOOiJIDgfWTlrNWN7HVvT_-aRx70y0Ozvo0AAEqDU
 
 @admin = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjowLCJ1c2VybmFtZSI6IjE4MzQxYTA1MzdAZ21yaXQuZWR1LmluIiwiaWQiOiI2MjI2ZjIwNGYzM2I0YTNiYzhhZjU3OTEiLCJpYXQiOjE2NDY5MzcwODgsImV4cCI6MTY0Njk0MDY4OH0.cE6KTxodRE5O4MBpAc_XGpVufJ7Brzb43TtYyfh2MuQ
 
 
-# Admin Login
-POST http://127.0.0.1:{{PORT}}/api/admin/ {{version}}
-Content-Type: application/json
+# # Admin Login
+# POST http://127.0.0.1:{{PORT}}/api/admin/ {{version}}
+# Content-Type: application/json
 
-{
-    "username": "18341A0537@gmrit.edu.in",
-    "password": "iamsuperadmin"
-}
+# {
+#     "username": "18341A0537@gmrit.edu.in",
+#     "password": "iamsuperadmin"
+# }
 
 
-# # Read Admin List
-# GET http://127.0.0.1:{{PORT}}/api/admin {{version}}
-# Authorization: {{superadmin}}
+# Read Admin List
+GET http://127.0.0.1:{{PORT}}/api/admin {{version}}
+Authorization: {{superadmin}}
 
 
 # # Update Admin Password

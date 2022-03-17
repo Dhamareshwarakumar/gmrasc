@@ -12,6 +12,8 @@ import Login from './components/admin/Login';
 import Home from './components/Home';
 import AdminDashboard from './components/admin/AdminDashboard';
 import Logout from './components/common/Logout';
+import Toast from './components/common/Toast';
+import Navbar from './components/common/Navbar';
 
 
 // Checking if the user is authenticated
@@ -36,11 +38,13 @@ function App() {
   return (
     <Provider store={store}>
       <div className="App">
+        <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/admin" element={<Login />} />
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
           <Route path="/logout" element={<Logout />} />
+          <Route path="/test" element={<Toast />} />
         </Routes>
       </div>
     </Provider>

@@ -99,7 +99,7 @@ router.put(
                 admin.save()
                     .then(admin => {
                         if (admin) res.json({ msg: "Password Updated" })
-                        else res.status(400).json({ err: "Password Not Updated" });
+                        else res.status(400).json({ password: "Password Not Updated" });
                     })
                     .catch(err => res.status(500).json({ err: "INTERNAL SERVER ERROR" }));
             })
@@ -116,6 +116,7 @@ router.delete(
     passport.authenticate('jwt', { session: false }),
     checkSuperAdmin,
     (req, res) => {
+        // FIXME: Super Admin is deleted by Super Admin Correct it (Super Admin Cannnot be deleted)
         Admin.findOneAndDelete({ username: req.params.username })
             .then(admin => {
                 if (admin) {
