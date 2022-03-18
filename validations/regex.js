@@ -1,4 +1,4 @@
-const NAME_REGEX = /^[a-zA-Z0-9_ ,\(\)-]{3,32}$/;
+const NAME_REGEX = /^[a-zA-Z0-9_ ,\(\)-.]{3,32}$/;
 const PH_NO_REGEX = /^(\+91)?[6789][0-9]{9}$/;
 const COLLEGE_REGEX = /^[-a-zA-Z0-9 .()]+$/;
 const GMRIT_REGEX = /g ?m ?r ?i(nstitute)? ?(of)? ?t(echnology)?/i;

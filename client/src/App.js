@@ -14,6 +14,9 @@ import AdminDashboard from './components/admin/AdminDashboard';
 import Logout from './components/common/Logout';
 import EventCard from './components/events/EventCard';
 import Navbar from './components/common/Navbar';
+import ListEvents from './components/events/ListEvents';
+import Footer from './components/common/Footer';
+import EventDetails from './components/events/EventDetails';
 
 
 // Checking if the user is authenticated
@@ -41,11 +44,15 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path='/events' element={<ListEvents />} />
+          <Route path='/events/:id' element={<EventDetails />} />
+
           <Route path="/admin" element={<Login />} />
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
           <Route path="/logout" element={<Logout />} />
           <Route path="/test" element={<EventCard />} />
         </Routes>
+        <Footer />
       </div>
     </Provider>
   );

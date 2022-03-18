@@ -2,14 +2,14 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 
-const EventCard = () => {
+const EventCard = props => {
     return (
-        <div class="card" style={{ width: "18rem" }}>
-            <img src="https://gmritchapter.acm.org/public/img/posters/workshop_on_poster_presentation.jpeg" class="card-img-top" alt="Event Name" />
-            <div class="card-body">
-                <h5 class="card-title">Event Title</h5>
-                <p class="card-text">Date: </p>
-                <Link to="#" class="btn btn-primary">View</Link>
+        <div className="card" style={{ width: "18rem" }}>
+            <img src={props.event.poster} className="card-img-top" alt="Event Name" />
+            <div className="card-body">
+                <h5 className="card-title">{props.event.name}</h5>
+                <p className="card-text">{new Date(props.event.start_time).toLocaleDateString()}</p>
+                <Link to={`/events/${props.event._id}`} className="btn btn-primary">View</Link>
             </div>
         </div>
     )
