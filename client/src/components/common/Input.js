@@ -14,7 +14,7 @@ const Input = ({
 }) => {
     return (
         <>
-            <label htmlFor={name} className="form-label">{label}</label>
+            {label !== "" && (<label htmlFor={name} className="form-label">{label}</label>)}
             <div className="input-group mb-3">
                 <input
                     type={type}

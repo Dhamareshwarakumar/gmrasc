@@ -12,7 +12,7 @@ import Login from './components/admin/Login';
 import Home from './components/Home';
 import AdminDashboard from './components/admin/AdminDashboard';
 import Logout from './components/common/Logout';
-import Toast from './components/common/Toast';
+import EventCard from './components/events/EventCard';
 import Navbar from './components/common/Navbar';
 
 
@@ -44,7 +44,7 @@ function App() {
           <Route path="/admin" element={<Login />} />
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
           <Route path="/logout" element={<Logout />} />
-          <Route path="/test" element={<Toast />} />
+          <Route path="/test" element={<EventCard />} />
         </Routes>
       </div>
     </Provider>

@@ -142,42 +142,49 @@ const validateNewEvent = (req, res, next) => {
     if (isEmpty(req.body.organisers)) {
         errors.organisers = `Organisers are required`;
     } else {
+        errors.organisers = {};
         req.body.organisers.forEach(organiser => {
             if (isEmpty(organiser.name)) {
-                errors.organisers = `Organisers must have a name`;
+                errors.organisers.name = `Organisers must have a name`;
             } else if (!NAME_REGEX.test(organiser.name)) {
-                errors.organisers = `Organisers must be 3-64 characters long and only contain alphanumeric characters, spaces, commas, dashes, and parentheses`;
+                errors.organisers.name = `Organisers must be 3-64 characters long and only contain alphanumeric characters, spaces, commas, dashes, and parentheses`;
             }
 
             if (isEmpty(organiser.designation)) {
-                errors.organisers = `Organisers must have a designation`;
+                errors.organisers.designation = `Organisers must have a designation`;
             }
 
             if (isEmpty(organiser.contact)) {
-                errors.organisers = `Organisers must have a contact`;
+                errors.organisers.contact = `Organisers must have a contact`;
             } else if (!PH_NO_REGEX.test(organiser.contact)) {
-                errors.organisers = `Organisers must have a valid contact`;
+                errors.organisers.contact = `Organisers must have a valid contact`;
             }
 
             if (!isEmpty(organiser.avatar)) {
                 if (!validator.isURL(organiser.avatar)) {
-                    errors.organisers = `Organisers must have a valid avatar URL`;
+                    errors.organisers.avatar = `Organisers must have a valid avatar URL`;
                 }
             }
 
         });
+        if (isEmpty(errors.organisers)) {
+            delete errors.organisers;
+        }
     }
 
     // validating reg_fee
     if (isEmpty(req.body.reg_fee)) {
         errors.reg_fee = `Registration Fee is required`;
     } else {
+        errors.reg_fee = {};
         if (isEmpty(req.body.reg_fee.acm_member)) {
-            errors.reg_fee = `ACM Member Registration Fee is required`;
-        } else {
-            if (isEmpty(req.body.reg_fee.non_acm_member)) {
-                errors.reg_fee = `Non ACM Member Registration Fee is required`;
-            }
+            errors.reg_fee.acm_member = `ACM Member Registration Fee is required`;
+        }
+        if (isEmpty(req.body.reg_fee.non_acm_member)) {
+            errors.reg_fee.non_acm_member = `Non ACM Member Registration Fee is required`;
+        }
+        if (isEmpty(errors.reg_fee)) {
+            delete errors.reg_fee;
         }
     }
 

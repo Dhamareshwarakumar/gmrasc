@@ -7,6 +7,8 @@ import { useNavigate } from 'react-router-dom';
 import AdminList from './AdminList';
 import UpdatePassword from './UpdatePassword';
 import CreateAdmin from './CreateAdmin';
+import ListEvents from '../events/ListEvents';
+import AddEvent from '../events/AddEvent';
 
 
 const AdminDashboard = props => {
@@ -27,6 +29,8 @@ const AdminDashboard = props => {
         adminsList: false,
         updatePassword: false,
         createAdmin: false,
+        listevents: false,
+        addevent: false
     }
     const [sidebar, setSidebar] = useState(initialState);
 
@@ -49,12 +53,18 @@ const AdminDashboard = props => {
                         <button id="updatePassword" className="btn btn-primary border" onClick={handleSidebarClick}>Update Password</button>
 
                         {props.auth.user.role === 0 && (<button id="createAdmin" className="btn btn-primary border" onClick={handleSidebarClick}>Create Admin (Super Admin)</button>)}
+
+                        <button id="listevents" className="btn btn-primary border" onClick={handleSidebarClick}>List Events</button>
+
+                        <button id="addevent" className="btn btn-primary border" onClick={handleSidebarClick}>Add Event</button>
                     </div>
                 </div>
                 <div className="col-10">
                     {sidebar.adminsList && <AdminList />}
                     {sidebar.updatePassword && <UpdatePassword />}
                     {sidebar.createAdmin && <CreateAdmin />}
+                    {sidebar.listevents && <ListEvents />}
+                    {sidebar.addevent && <AddEvent />}
                 </div>
             </div>
         </div>

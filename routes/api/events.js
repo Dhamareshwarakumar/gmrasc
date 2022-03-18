@@ -86,7 +86,7 @@ router.post(
                     req.body.results && (newEvent.results = req.body.results);
 
                     newEvent.save()
-                        .then(event => res.json(event))
+                        .then(event => res.json({ msg: "Event Created Successfully", event }))
                         .catch(err => res.status(500).json({ err: "Internal Server Error" }));
                 }
 
