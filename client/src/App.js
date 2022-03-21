@@ -12,11 +12,15 @@ import Login from './components/admin/Login';
 import Home from './components/Home';
 import AdminDashboard from './components/admin/AdminDashboard';
 import Logout from './components/common/Logout';
-import EventCard from './components/events/EventCard';
 import Navbar from './components/common/Navbar';
 import ListEvents from './components/events/ListEvents';
 import Footer from './components/common/Footer';
 import EventDetails from './components/events/EventDetails';
+import TestUpload from './components/admin/TestUpload';
+
+
+// firebase Configuration
+import './config/firebase';
 
 
 // Checking if the user is authenticated
@@ -50,7 +54,7 @@ function App() {
           <Route path="/admin" element={<Login />} />
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
           <Route path="/logout" element={<Logout />} />
-          <Route path="/test" element={<EventCard />} />
+          <Route path="/test" element={<TestUpload />} />
         </Routes>
         <Footer />
       </div>

@@ -1,10 +1,16 @@
 import axios from 'axios';
 import React, { useState } from 'react';
-
+import { getStorage, ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
+import firebaseApp from '../../config/firebase';
+import classnames from 'classnames';
 
 // import Components
 import Input from '../common/Input';
 import Toast from '../common/Toast';
+
+
+const storage = getStorage(firebaseApp);
+
 
 const AddEvent = () => {
     const intialFormState = {
@@ -30,6 +36,7 @@ const AddEvent = () => {
     }
     const [form, setForm] = useState(intialFormState);
 
+    const [poster, setPoster] = useState(null);
     const [errors, setErrors] = useState({});
     const [alerts, setAlerts] = useState([]);
 
@@ -89,6 +96,43 @@ const AddEvent = () => {
         });
     }
 
+    const handlePosterChange = e => {
+        if (e.target.files[0]) {
+            setPoster(e.target.files[0]);
+        }
+    }
+
+    const handlePosterUpload = e => {
+        if (!poster) {
+            setErrors({
+                ...errors,
+                poster: 'Please select a file'
+            });
+            return;
+        }
+        const storageRef = ref(storage, 'images/' + poster.name);
+        const uploadTask = uploadBytesResumable(storageRef, poster);
+        uploadTask.on('state_changed',
+            (snapshot) => {
+                // progress function ...
+                const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+                console.log('Upload is ' + progress + '% done');
+            },
+            (error) => {
+                // error function ...
+                console.log(error);
+            },
+            () => {
+                // complete function ...
+                getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                    setForm({
+                        ...form,
+                        poster: downloadURL
+                    });
+                });
+            });
+    }
+
     const handleSubmit = e => {
         e.preventDefault();
 
@@ -116,6 +160,7 @@ const AddEvent = () => {
                         <div className="card">
                             <div className="card-body">
                                 <h3 className="card-title text-center">Add Event</h3>
+                                {/* Event Name */}
                                 <Input
                                     type="text"
                                     name="name"
@@ -125,6 +170,7 @@ const AddEvent = () => {
                                     error={errors.name}
                                     onChange={handleChange}
                                 />
+                                {/* Event Venue */}
                                 <Input
                                     type="text"
                                     name="venue"
@@ -134,6 +180,7 @@ const AddEvent = () => {
                                     error={errors.venue}
                                     onChange={handleChange}
                                 />
+                                {/* Start Time */}
                                 <div className="row">
                                     <div className="col-sm-6">
                                         <Input
@@ -146,6 +193,7 @@ const AddEvent = () => {
                                             onChange={handleChange}
                                         />
                                     </div>
+                                    {/* End Time */}
                                     <div className="col-sm-6">
                                         <Input
                                             type="datetime-local"
@@ -159,6 +207,7 @@ const AddEvent = () => {
                                     </div>
                                 </div>
                                 {/* TODO: Change it to a dropdown */}
+                                {/* Event Type */}
                                 <div className="row">
                                     <div className="col-sm-6">
                                         <Input
@@ -171,6 +220,7 @@ const AddEvent = () => {
                                             onChange={handleChange}
                                         />
                                     </div>
+                                    {/* Event Category */}
                                     <div className="col-sm-6">
                                         <Input
                                             type="text"
@@ -183,15 +233,34 @@ const AddEvent = () => {
                                         />
                                     </div>
                                 </div>
-                                <Input
-                                    type="text"
+                                {/* Poster */}
+                                <div className="form-group mb-3">
+                                    <div className="row align-items-start">
+                                        <label htmlFor="poster">Poster</label>
+                                        <div className="col-10">
+                                            <div className="input-group">
+                                                <input type="file" name="poster" className={classnames(
+                                                    'form-control', {
+                                                    'is-invalid': errors.poster
+                                                }
+                                                )} onChange={handlePosterChange} />
+                                                {errors.poster && (<div className="invalid-feedback">{errors.poster}</div>)}
+                                            </div>
+                                        </div>
+                                        <div className="col-2 d-grid">
+                                            <button type="button" className='btn btn-primary' onClick={handlePosterUpload}>Upload</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                {/* <Input
+                                    type="hidden"
                                     name="poster"
                                     placeholder="Enter Poster URL"
-                                    label="Poster"
+                                    label=" "
                                     value={form.poster}
                                     error={errors.poster}
                                     onChange={handleChange}
-                                />
+                                /> */}
                                 {/* TODO: Change it to TextArea */}
                                 <Input
                                     type="text"

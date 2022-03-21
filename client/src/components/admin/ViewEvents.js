@@ -19,7 +19,6 @@ const ViewEvents = props => {
             .catch(err => console.log(err));
     }
 
-
     return (
         <table className="table table-striped table-hover">
             <thead>

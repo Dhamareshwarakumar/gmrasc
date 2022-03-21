@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
 
 
 const Input = ({
-    type,
+    type: initialType,
     name,
     placeholder,
     value,
@@ -12,6 +12,11 @@ const Input = ({
     onChange,
     label
 }) => {
+    const [type, setType] = useState(initialType);
+
+    const togglePasswordVisibility = () => {
+        setType(type === 'password' ? 'text' : 'password');
+    }
     return (
         <>
             {label !== "" && (<label htmlFor={name} className="form-label">{label}</label>)}
@@ -28,6 +33,12 @@ const Input = ({
                     onChange={onChange}
                     value={value}
                 />
+                {initialType === 'password' && type === 'password' && (
+                    <span class="input-group-text" id="basic-addon2" onClick={togglePasswordVisibility}><i class="bi bi-eye"></i></span>
+                )}
+                {initialType === 'password' && type === 'text' && (
+                    <span class="input-group-text" id="basic-addon2" onClick={togglePasswordVisibility}><i class="bi bi-eye-slash"></i></span>
+                )}
                 {error && (<div className="invalid-feedback">{error}</div>)}
             </div>
         </>
