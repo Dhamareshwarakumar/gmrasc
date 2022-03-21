@@ -125,8 +125,8 @@ router.put(
 // @access :: Admin
 router.delete(
     '/:id',
-    checkAdmin,
     passport.authenticate('jwt', { session: false }),
+    checkAdmin,
     (req, res) => {
         Event.findById(req.params.id)
             .then(event => {

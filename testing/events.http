@@ -1,0 +1,98 @@
+@port = 3333
+@version = HTTP/1.1
+
+@admin  = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjowLCJ1c2VybmFtZSI6IjE4MzQxYTA1MzdAZ21yaXQuZWR1LmluIiwiaWQiOiI2MjI2ZjIwNGYzM2I0YTNiYzhhZjU3OTEiLCJpYXQiOjE2NDY5NzA2ODEsImV4cCI6MTY0Njk3NDI4MX0.kFAA0Y0pdJPA1mb686wpiEd7vxcf-dap9OIcTUpdDnM
+
+# # Create an event
+# POST http://127.0.0.1:{{port}}/api/events {{version}}
+# Authorization: {{admin}}
+# Content-Type: application/json
+
+# {
+#     "name": "Play With Packages",
+#     "venue": "CA LAB (Block V)",
+#     "start_time": "Thu Mar 10 2022 17:16:12 GMT+0530 (India Standard Time)",
+#     "end_time": "Thu Mar 11 2022 17:16:12 GMT+0530 (India Standard Time)",
+#     "type": "Workshop",
+#     "category": "Artificial Intelligence",
+#     "poster": "http://gmritchapter.acm.org/public/img/posters/clone_it.jpeg",
+#     "description": "This is a workshop on Artificial Intelligence",
+#     "organisers": [
+#         {
+#         "name": "Dhamareshwarakuamr",
+#         "contact": "7661979943",
+#         "designation": "Chairperson, GMRASC",
+#         "avatar": "https://gmritchapter.acm.org/public/img/team/2021-22/dhamaresh.jpeg"
+#         }
+#     ],
+#     "reg_fee": {
+#         "acm_member": "100",
+#         "non_acm_member": "200"
+#     },
+#     "reg_link": "https://gmritchapter.acm.org/e/play-with-packages",
+#     "resources": [
+#         {
+#             "name": "Syallabus",
+#             "url": "https://gmritchapter.acm.org/public/resources/play-with-packages/syllabus.pdf"
+#         }
+#     ]
+# }
+
+
+# # Read Events
+# GET http://127.0.0.1:{{port}}/api/events {{version}}
+
+
+# # Read An Event
+# GET http://127.0.0.1:{{port}}/api/events/622a48382294f241ba3cb6f1 {{version}}
+
+
+
+# Update an Event
+PUT http://127.0.0.1:{{port}}/api/events/622a48382294f241ba3cb6f1 {{version}}
+Authorization: {{admin}}
+Content-Type: application/json
+
+{
+    "name": "Play With Packages",
+    "venue": "CA LAB (Block V)",
+    "start_time": "Thu Mar 10 2022 17:16:12 GMT+0530 (India Standard Time)",
+    "end_time": "Thu Mar 11 2022 17:16:12 GMT+0530 (India Standard Time)",
+    "type": "Workshop",
+    "category": "Artificial Intelligence",
+    "poster": "http://gmritchapter.acm.org/public/img/posters/clone_it.jpeg",
+    "description": "This is a workshop on Artificial Intelligence",
+    "organisers": [
+        {
+        "name": "Dhamareshwarakuamr",
+        "contact": "7661979943",
+        "designation": "Chairperson, GMRASC",
+        "avatar": "https://gmritchapter.acm.org/public/img/team/2021-22/dhamaresh.jpeg"
+        },
+        {
+            "name": "Adarsh Badagala",
+            "contact": "8457963215",
+            "designation": "Vice Chairperson, GMRASC",
+            "avatar": "https://gmritchapter.acm.org/public/img/team/2021-22/adarsh.jpeg"
+        }
+    ],
+    "reg_fee": {
+        "acm_member": "0",
+        "non_acm_member": "300"
+    },
+    "reg_link": "https://gmritchapter.acm.org/e/play-with-packages",
+    "resources": [
+        {
+            "name": "Syallabus",
+            "url": "https://gmritchapter.acm.org/public/resources/play-with-packages/syllabus.pdf"
+        }
+    ],
+    "resource_persons": [
+        {
+            "name": "Hitesh Choudhary",
+            "designation": "Founder, LCO",
+            "avatar": "https://hiteshchoudhary.com/static/a8d73d1aac4c79e9bb689640e6090367/2eaab/person-image.jpg"
+        }
+    ]
+}
+

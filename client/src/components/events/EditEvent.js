@@ -1,12 +1,12 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 
 // import Components
 import Input from '../common/Input';
 import Toast from '../common/Toast';
 
-const AddEvent = () => {
+const EditEvent = props => {
     const intialFormState = {
         name: '',
         venue: '',
@@ -33,6 +33,15 @@ const AddEvent = () => {
     const [errors, setErrors] = useState({});
     const [alerts, setAlerts] = useState([]);
 
+    useEffect(() => {
+        axios.get(`/api/events/${props.id}`)
+            .then(res => setForm({
+                ...res.data,
+                start_time: new Date(res.data.start_time).toISOString().substr(0, 23),
+                end_time: new Date(res.data.end_time).toISOString().substr(0, 23)
+            }))
+            .catch(err => console.log(err));
+    }, [props.id]);
 
     const handleChange = e => {
         setForm({
@@ -92,16 +101,15 @@ const AddEvent = () => {
     const handleSubmit = e => {
         e.preventDefault();
 
-        axios.post('/api/events', form)
+        axios.put(`/api/events/${props.id}`, form)
             .then(res => {
                 setErrors({});
                 setAlerts([
-                    { type: 'success', msg: 'Event Added Successfully' }
+                    { type: 'success', msg: 'Event Updated Successfully' }
                 ]);
                 setTimeout(() => {
                     setAlerts([]);
                 }, 3000);
-                setForm(intialFormState);
             })
             .catch(err => {
                 setErrors(err.response.data);
@@ -115,7 +123,7 @@ const AddEvent = () => {
                     <form>
                         <div className="card">
                             <div className="card-body">
-                                <h3 className="card-title text-center">Add Event</h3>
+                                <h3 className="card-title text-center">Edit Event</h3>
                                 <Input
                                     type="text"
                                     name="name"
@@ -321,4 +329,4 @@ const Organiser = props => {
     );
 };
 
-export default AddEvent
+export default EditEvent

@@ -6,16 +6,16 @@ const Home = () => {
         <>
             <h1 className='text-center'>Welcome To GMRASC Chapter Management System</h1>
 
-            <h2 className='mt-5'>Checkout the links here</h2>
+            {/* <h2 className='mt-5'>Checkout the links here</h2>
             <ul>
                 <li><Link to="/admin">Admin Dashboard</Link></li>
-            </ul>
+            </ul> */}
 
-            <div class="container mt-5">
-                <div class="row justify-content-center">
-                    <div class="col-md-6">
+            <div className="container mt-5">
+                <div className="row justify-content-center">
+                    <div className="col-md-6">
                         {/* Admin API  */}
-                        <table class="table table-striped">
+                        <table className="table table-striped">
                             <thead>
                                 <tr>
                                     <th>Operation</th>
@@ -54,9 +54,9 @@ const Home = () => {
                     </div>
                 </div>
                 {/* Events API */}
-                <div class="row justify-content-center">
-                    <div class="col-md-6">
-                        <table class="table table-striped">
+                <div className="row justify-content-center">
+                    <div className="col-md-6">
+                        <table className="table table-striped">
                             <thead>
                                 <tr>
                                     <th>Operation</th>

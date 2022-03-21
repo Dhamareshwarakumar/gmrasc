@@ -17,7 +17,6 @@ const EventDetails = () => {
     }, [id]);
 
     let date = new Date(event.start_time);
-    console.log(event);
     return (
         <div id='main'>
             {/* Landing Section */}

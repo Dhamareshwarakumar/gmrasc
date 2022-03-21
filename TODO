@@ -1,3 +1,13 @@
-- Send errors to discord
-- remove console.log() and use industry loggers
-- - Update JNTU regex for AI/ML branch
+-   Send errors to discord
+-   remove console.log() and use industry loggers
+-   -   Update JNTU regex for AI/ML branch
+-   Load Testing, Stress Testing: K6
+-   Add Winston Logger
+-   Add Confirm Password for Admin Creation
+-   Send custom mail to all the registrations
+-   Send Invitation mail to given emails
+-   Checkout Datadog | Splunk | Loggle
+-   Block login after multiple attempts
+- Single Sign on
+
+-   Remove Redux Dev Tools

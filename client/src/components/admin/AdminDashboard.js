@@ -8,7 +8,9 @@ import AdminList from './AdminList';
 import UpdatePassword from './UpdatePassword';
 import CreateAdmin from './CreateAdmin';
 import ListEvents from '../events/ListEvents';
+import ViewEvents from './ViewEvents';
 import AddEvent from '../events/AddEvent';
+import EditEvent from '../events/EditEvent';
 
 
 const AdminDashboard = props => {
@@ -29,16 +31,27 @@ const AdminDashboard = props => {
         adminsList: false,
         updatePassword: false,
         createAdmin: false,
-        listevents: false,
+        viewevents: false,
         addevent: false
     }
     const [sidebar, setSidebar] = useState(initialState);
+    const [eventId, setEventId] = useState(null);
 
     // Toggle the visibility of sidebar components
     const handleSidebarClick = e => {
         setSidebar({
             ...initialState,
             [e.target.id]: true
+        })
+    }
+
+
+
+    const handleEventEdit = id => {
+        setEventId(id);
+        setSidebar({
+            ...initialState,
+            editevent: true
         })
     }
 
@@ -54,17 +67,19 @@ const AdminDashboard = props => {
 
                         {props.auth.user.role === 0 && (<button id="createAdmin" className="btn btn-primary border" onClick={handleSidebarClick}>Create Admin (Super Admin)</button>)}
 
-                        <button id="listevents" className="btn btn-primary border" onClick={handleSidebarClick}>List Events</button>
+                        <button id="viewevents" className="btn btn-primary border" onClick={handleSidebarClick}>View Events</button>
 
                         <button id="addevent" className="btn btn-primary border" onClick={handleSidebarClick}>Add Event</button>
                     </div>
                 </div>
                 <div className="col-10">
+
                     {sidebar.adminsList && <AdminList />}
                     {sidebar.updatePassword && <UpdatePassword />}
                     {sidebar.createAdmin && <CreateAdmin />}
-                    {sidebar.listevents && <ListEvents />}
+                    {sidebar.viewevents && <ViewEvents handleEventEdit={handleEventEdit} />}
                     {sidebar.addevent && <AddEvent />}
+                    {sidebar.editevent && <EditEvent id={eventId} />}
                 </div>
             </div>
         </div>
