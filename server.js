@@ -26,6 +26,7 @@ const PORT = process.env.PORT || 3333;
 // Routes
 app.use('/api/admin', require('./routes/api/admin'));
 app.use('/api/events', require('./routes/api/events'));
+app.use('/api/payment', require('./routes/api/payment'));
 
 // Server Static assets if in production
 if (process.env.NODE_ENV === 'production') {

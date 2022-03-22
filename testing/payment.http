@@ -1,0 +1,20 @@
+POST https://securegw-stage.paytm.in/theia/api/v1/initiateTransaction?mid=pXFkWF09846720611407&orderId=PYTM_ORDR_12356485A
+Content-Type: application/json
+channelId: WEB
+requestTimestamp: 1647920918260
+signature: otj9guxpzhn1a6S4P0eBi4wkhISvDFZqHWquldzTYShveAjNIxYuQOpxeFbjL8jBxp3SetA2un7xdcOAxW8rV35i5W6CYP2jw5zyVVJj0ew=
+
+{
+    "requestType": "Payment",
+    "mid": "pXFkWF09846720611407",
+    "orderId": "PYTM_ORDR_12356485A",
+    "callbackUrl": "http://localhost:3333/api/payment",
+    "websiteName": "WEBSTAGING",
+    "txnAmount": {
+        "value": "1.00",
+        "currency": "INR"
+    },
+    "userInfo":{
+            "custId":"CUST_001"
+        }
+}

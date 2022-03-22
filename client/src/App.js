@@ -16,7 +16,7 @@ import Navbar from './components/common/Navbar';
 import ListEvents from './components/events/ListEvents';
 import Footer from './components/common/Footer';
 import EventDetails from './components/events/EventDetails';
-import TestUpload from './components/admin/TestUpload';
+import TestPayment from './components/test/TestPayment';
 
 
 // firebase Configuration
@@ -54,7 +54,7 @@ function App() {
           <Route path="/admin" element={<Login />} />
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
           <Route path="/logout" element={<Logout />} />
-          <Route path="/test" element={<TestUpload />} />
+          <Route path="/test" element={<TestPayment />} />
         </Routes>
         <Footer />
       </div>
