@@ -17,6 +17,7 @@ import ListEvents from './components/events/ListEvents';
 import Footer from './components/common/Footer';
 import EventDetails from './components/events/EventDetails';
 import TestPayment from './components/test/TestPayment';
+import CheckMember from './components/members/CheckMember';
 
 
 // firebase Configuration
@@ -50,6 +51,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path='/events' element={<ListEvents />} />
           <Route path='/events/:id' element={<EventDetails />} />
+          <Route path='/members' element={<CheckMember />} />
 
           <Route path="/admin" element={<Login />} />
           <Route path="/admin/dashboard" element={<AdminDashboard />} />

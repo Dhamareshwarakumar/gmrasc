@@ -1,163 +1,111 @@
 const express = require('express');
-const { v4: uuidv4 } = require('uuid');
 const router = express.Router();
 const https = require('https');
+const { v4: uuidv4 } = require('uuid');
+
+const PaytmChecksum = require('paytmchecksum');
 
 
-const paytmChecksum = require('../../config/paytm_checksum');
-// const paytmChecksum = require("paytmchecksum");
+router.post(
+    '/',
+    (req, res) => {
+
+        var paytmParams = {};
+        const orderId = uuidv4();
+
+        paytmParams.body = {
+            requestType: "Payment",
+            mid: process.env.PAYTM_MERCHANT_ID,
+            websiteName: "WEBSTAGING",
+            orderId: orderId,
+            callbackUrl: "http://localhost:3000/api/payment",
+            txnAmount: {
+                value: req.body.amount,
+                currency: "INR",
+            },
+            userInfo: {
+                custId: req.body.custId,
+                name: req.body.name,
+                phone: req.body.phone,
+                email: req.body.email,
+            },
+        };
 
 
-router.get('/', (req, res) => {
+        PaytmChecksum.generateSignature(JSON.stringify(paytmParams.body), process.env.PAYTM_MERCHANT_KEY)
+            .then(function (checksum) {
 
-    /* initialize JSON String */
-    body = {
-        requestType: 'Payment',
-        mid: 'pXFkWF09846720611407',
-        orderId: '12356485A',
-        callbackUrl: 'http://localhost:3333/api/payment',
-        websiteName: 'WEBSTAGING',
-        txnAmount: {
-            value: '1.00',
-            currency: 'INR'
-        },
-        userInfo: {
-            custId: 'CUST_001',
-            mobile: '9866233109'
-        }
+                paytmParams.head = {
+                    "signature": checksum
+                };
+
+                var post_data = JSON.stringify(paytmParams);
+
+                var options = {
+                    hostname: 'securegw-stage.paytm.in',
+                    port: 443,
+                    path: `/theia/api/v1/initiateTransaction?mid=${process.env.PAYTM_MERCHANT_ID}&orderId=${orderId}`,
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Content-Length': post_data.length
+                    }
+                };
+
+                var response = "";
+                var post_req = https.request(options, function (post_res) {
+                    post_res.on('data', function (chunk) {
+                        response += chunk;
+                    });
+
+                    post_res.on('end', function () {
+                        const txnToken = JSON.parse(response).body.txnToken;
+
+                        // Internal Request 
+
+                        var paytmParams2 = {};
+                        paytmParams2.body = {
+                            "mid": process.env.PAYTM_MERCHANT_ID,
+                            "orderId": orderId,
+                            "returnToken": "true"
+                        };
+                        paytmParams2.head = {
+                            "tokenType": "TXN_TOKEN",
+                            "token": txnToken
+                        };
+                        var post_data2 = JSON.stringify(paytmParams2);
+                        var options2 = {
+                            hostname: 'securegw-stage.paytm.in',
+                            port: 443,
+                            path: `/theia/api/v2/fetchPaymentOptions?mid=${process.env.PAYTM_MERCHANT_ID}&orderId=${orderId}`,
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Content-Length': post_data2.length
+                            }
+                        };
+
+                        var response2 = "";
+                        var post_req2 = https.request(options2, function (post_res2) {
+                            post_res2.on('data', function (chunk) {
+                                response2 += chunk;
+                            });
+
+                            post_res2.on('end', function () {
+                                console.log('Response: ', JSON.parse(response2));
+                                res.send(JSON.parse(response2));
+                            });
+                        });
+                        post_req2.write(post_data2);
+                        post_req2.end();
+                        // Internal Request end
+                    });
+                });
+
+                post_req.write(post_data);
+                post_req.end();
+            });
     }
-
-
-    paytmChecksum.generateSignature(JSON.stringify(body), "GEyLWBcbVw_E1RIE")
-        .then(function (result) {
-            console.log("generateSignature Returns: " + result);
-        }).catch(function (error) {
-            console.log(error);
-        });
-})
-
-
-// router.post(
-//     '/',
-//     (req, res) => {
-//         params = {
-//             "requestType": "Payment",
-//             "mid": process.env.PAYTM_MERCHANT_ID,
-//             "orderId": uuidv4(),
-//             "callbackUrl": "http://localhost:3333/api/payment",
-//             "websiteName": "WEBSTAGING",
-//             "txnAmount": {
-//                 "value": req.body.amount,
-//                 "currency": "INR",
-//             },
-//             "userInfo": {
-//                 "custId": req.body.customer_id,
-//                 "mobile": req.body.contact,
-//                 "email": req.body.email,
-//                 "firstName": req.body.name
-//             },
-//         };
-
-//         paytmChecksum.generateSignature(JSON.stringify(params), process.env.PAYTM_MERCHANT_KEY)
-//             .then(function (checksum) {
-//                 fetch(`https://securegw-stage.paytm.in/theia/api/v1/initiateTransaction?mid=${process.env.PAYTM_MERCHANT_ID}&orderId=${params.orderId}`, {
-//                     method: 'POST',
-//                     body: JSON.stringify(params),
-//                     headers: {
-//                         'Content-Type': 'application/json',
-//                         'signature': checksum,
-//                         'requestTimeStamp': Date.now(),
-//                         'channelId': 'WEB'
-//                     },
-//                 })
-//                     .then(res => res.json())
-//                     .then(res => {
-//                         res.json(res);
-//                     })
-//                     .catch(err => {
-//                         console.log(err);
-//                     });
-//             });
-//     }
-// )
-
-
-
-
-
-
-
-// router.post(
-//     '/',
-//     (req, res) => {
-//         var paytmParams = {};
-
-//         paytmParams.body = {
-//             "requestType": "Payment",
-//             "mid": process.env.PAYTM_MERCHANT_ID,
-//             "orderId": uuidv4(),
-//             "callbackUrl": "http://localhost:3333/api/payment",
-//             "websiteName": "WEBSTAGING",
-//             "txnAmount": {
-//                 "value": req.body.amount,
-//                 "currency": "INR",
-//             },
-//             "userInfo": {
-//                 "custId": req.body.customer_id,
-//                 "mobile": req.body.contact,
-//                 "email": req.body.email,
-//                 "firstName": req.body.name
-//             },
-//         };
-
-//         paytmChecksum.generateSignature(JSON.stringify(paytmParams.body), process.env.PAYTM_MERCHANT_KEY)
-//             .then(function (checksum) {
-//                 paytmParams.head = {
-//                     'Content-Type': 'application/json',
-//                     "signature": checksum,
-//                     "requestTimeStamp": Date.now(),
-//                     "channelId": "WEB"
-//                 };
-
-//                 var post_data = JSON.stringify(paytmParams);
-
-//                 var options = {
-
-//                     /* for Staging */
-//                     hostname: 'securegw-stage.paytm.in',
-
-//                     /* for Production */
-//                     // hostname: 'securegw.paytm.in',
-
-//                     port: 443,
-//                     path: `/theia/api/v1/initiateTransaction?mid=${process.env.PAYTM_MERCHANT_ID}&orderId=${paytmParams.body.orderId}`,
-//                     method: 'POST',
-//                     headers: {
-//                         'Content-Type': 'application/json',
-//                         "signature": checksum,
-//                         "requestTimeStamp": Date.now(),
-//                         "channelId": "WEB"
-//                     }
-//                 };
-
-//                 var response = "";
-//                 var post_req = https.request(options, function (post_res) {
-//                     post_res.on('data', function (chunk) {
-//                         response += chunk;
-//                     });
-
-//                     post_res.on('end', function () {
-//                         console.log(JSON.parse(response));
-//                         res.json(response);
-//                     });
-//                 });
-
-//                 post_req.write(post_data);
-//                 post_req.end();
-//             });
-//     }
-// );
-
-
+)
 
 module.exports = router;
