@@ -48,3 +48,67 @@
         line-height: 50px;
     }
 }
+
+
+/* Services Section */
+#services {
+    height: 93vh;
+}
+
+#services .container {
+    height: 100%;
+}
+
+#services .container .row {
+    height: 100%;
+}
+
+@media(max-width: 768px) {
+    #services {
+        height: auto;
+    }
+}
+
+/* About us Section */
+#about-us {
+    height: 93vh;
+    background-color: #333;
+}
+
+#about-us .container {
+    height: 100%;
+}
+
+#about-us .container .row{
+    height: 100%;
+}
+
+#contact-img {
+    width: 100%;
+    height: auto;
+}
+
+@media(max-width: 768px) {
+    #about-us {
+        height: auto;
+    }
+}
+
+/* Test Section */
+#test {
+    height: 93vh;
+}
+
+#test .container {
+    height: 100%;
+}
+
+#test .container .row {
+    height: 100%;
+}
+
+@media (max-width: 768px) {
+    #test {
+        height: auto;
+    }
+}

@@ -1,0 +1,19 @@
+@version = HTTP/1.1
+@PORT = 3333
+
+@admin = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjowLCJ1c2VybmFtZSI6IjE4MzQxYTA1MzdAZ21yaXQuZWR1LmluIiwiaWQiOiI2MjMyMTVlYTUzZWY1YTI3MTU4Njg5ZjgiLCJpYXQiOjE2NDg2NjkyODAsImV4cCI6MTY0ODY3Mjg4MH0.pv0IQxNA3lmFtD_WE_inmQO7HZ_9LSh0x67pgIs7gkI
+
+
+# # Admin Login
+# POST http://127.0.0.1:{{PORT}}/api/admin/ {{version}}
+# Content-Type: application/json
+
+# {
+#     "username": "18341A0537@gmrit.edu.in",
+#     "password": "iamsuperadmin"
+# }
+
+
+# Get all Members
+GET http://127.0.0.1:3333/api/members/ {{version}}
+Authorization: {{admin}}

@@ -1,0 +1,20 @@
+@version = HTTP/1.1
+@PORT = 3333
+
+@admin = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjowLCJ1c2VybmFtZSI6IjE4MzQxYTA1MzdAZ21yaXQuZWR1LmluIiwiaWQiOiI2MjMyMTVlYTUzZWY1YTI3MTU4Njg5ZjgiLCJpYXQiOjE2NDg0OTg2MzksImV4cCI6MTY0ODUwMjIzOX0.n9GEZfip6KM7-wFHAlge_HKLNkglw6FCW-rU6ojwGUM
+
+
+# Gallery List
+GET http://127.0.0.1:3333/api/gallery
+
+
+# # Add Image to Gallery
+# POST http://127.0.0.1:3333/api/gallery
+# Authorization: {{admin}}
+# Content-Type: application/json
+
+# {
+#     "event_name": "Test",
+#     "date": "Tue Mar 29 2022 01:48:44 GMT+0530 (India Standard Time)",
+#     "url": "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png"
+# }

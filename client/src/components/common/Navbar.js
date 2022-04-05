@@ -32,6 +32,12 @@ const Navbar = props => {
                         <li className="nav-item">
                             <Link className='nav-link' to="/events">Events</Link>
                         </li>
+                        <li className="nav-item">
+                            <Link className='nav-link' to="/membership">Membership</Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link className='nav-link' to="/gallery">Gallery</Link>
+                        </li>
                         {props.auth.isAuthenticated && (
                             <li className="nav-item">
                                 <Link className='nav-link' to="/admin/dashboard">Dashboard</Link>

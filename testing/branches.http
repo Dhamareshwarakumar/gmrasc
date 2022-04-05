@@ -1,0 +1,44 @@
+@version = HTTP/1.1
+@PORT = 3333
+
+
+@admin = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjowLCJ1c2VybmFtZSI6IjE4MzQxYTA1MzdAZ21yaXQuZWR1LmluIiwiaWQiOiI2MjMyMTVlYTUzZWY1YTI3MTU4Njg5ZjgiLCJpYXQiOjE2NDkwNDkyNzAsImV4cCI6MTY0OTA1Mjg3MH0.HuLLrpahBTz0DuXrYyZb9t26FNibWtkVEJKIxO0_Lwk
+
+
+# # Admin Login
+# POST http://127.0.0.1:{{PORT}}/api/admin/ {{version}}
+# Content-Type: application/json
+
+# {
+#     "username": "18341A0537@gmrit.edu.in",
+#     "password": "iamsuperadmin"
+# }
+
+
+# Get all Branches
+GET http://127.0.0.1:{{PORT}}/api/branches/ {{version}}
+
+
+# # Add Branch
+# POST http://127.0.0.1:{{PORT}}/api/branches/ {{version}}
+# Content-Type: application/json
+# Authorization: {{admin}}
+
+# {
+#     "name": "ECE"
+# }
+
+
+# # Update Branch
+# PUT http://127.0.0.1:{{PORT}}/api/branches/624a8468b7f73f7c812253c2/ {{version}}
+# Content-Type: application/json
+# Authorization: {{admin}}
+
+# {
+#     "name": "Computer Science and Engineering"
+# }
+
+
+# # Delete Branch
+# DELETE http://127.0.0.1:{{PORT}}/api/branches/624a84f12ae5624375c1ad31/ {{version}}
+# Authorization: {{admin}}

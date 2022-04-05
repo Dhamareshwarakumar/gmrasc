@@ -28,6 +28,9 @@ app.use('/api/admin', require('./routes/api/admin'));
 app.use('/api/events', require('./routes/api/events'));
 app.use('/api/payment', require('./routes/api/payment'));
 app.use('/api/members', require('./routes/api/members'));
+app.use('/api/gallery', require('./routes/api/gallery'));
+// Testing
+app.use('/api/branches', require('./routes/api/branches'));
 
 // Server Static assets if in production
 if (process.env.NODE_ENV === 'production') {

@@ -1,3 +1,88 @@
 .login-body {
     min-height: 100vh;
 }
+
+footer .bi:hover {
+    color: #007bff;
+    cursor: pointer;
+}
+
+/* Gallery */
+.gallery {
+    background: linear-gradient(45deg, #e98d3d, #fbf9fa);
+}
+
+/* Membership */
+.membership {
+    background: linear-gradient(45deg, #e98d3d, #fbf9fa);
+}
+
+/* Membership Card */
+.membership-card {
+    box-shadow: 0 10px 20px rgb(0 0 0 / 20%);
+    width: 400px;
+    min-height: 200px;
+    border-radius: 10px;
+    position: relative;
+    margin: 5px;
+    margin-top: 45px;
+    background-color: aliceblue;
+}
+
+.membership-card-logo {
+    border-radius: 50%;
+    /* border: 1px solid blue; */
+    height: 80px;
+    width: 80px;
+    position: absolute;
+    left: 150px;
+    top: -40px;
+}
+
+.membership-card-text {
+    position: absolute;
+    top: 40px;
+}
+
+/* Events */
+.events {
+    background: linear-gradient(45deg, #e98d3d, #fbf9fa);
+}
+
+
+
+/* Student Login */
+.text-primary {
+    color: #6c63ff;
+}
+
+.page-divider {
+    width: 50vw;
+    height: 100vh;
+    position: absolute;
+    background-color: rgba(108, 99, 255, 0.7);
+    /* z-index: "-2"; */
+}
+
+.adminlogin_landing {
+    height: 100vh;
+    padding: 15px;
+}
+
+.adminlogin_landing_card {
+    max-width: 1080px;
+    min-height: 55vh;
+    margin: auto;
+    padding: 25px;
+    position: relative;
+}
+
+.adminlogin_landing_card_main {
+    min-height: 45vh;
+}
+
+@media (max-width: 576px) {
+    .login-heading {
+        font-size: 2.2rem;
+    }
+}

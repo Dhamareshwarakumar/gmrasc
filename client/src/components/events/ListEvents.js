@@ -13,14 +13,16 @@ const ListEvents = () => {
             .catch(err => console.log(err));
     }, []);
     return (
-        <div className="container">
-            <div className="row">
-                <h1 className='text-center mb-4'>Events List </h1>
-                {events.map(event => (
-                    <div className="col-md-4 mb-3 d-flex justify-content-center" key={event._id}>
-                        <EventCard event={event} />
-                    </div>
-                ))}
+        <div className="events">
+            <div className="container">
+                <div className="row">
+                    <h1 className='text-center mb-4'>Events List </h1>
+                    {events.map(event => (
+                        <div className="col-md-4 mb-3 d-flex justify-content-center" key={event._id}>
+                            <EventCard event={event} />
+                        </div>
+                    ))}
+                </div>
             </div>
         </div>
     )

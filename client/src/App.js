@@ -16,8 +16,13 @@ import Navbar from './components/common/Navbar';
 import ListEvents from './components/events/ListEvents';
 import Footer from './components/common/Footer';
 import EventDetails from './components/events/EventDetails';
-import TestPayment from './components/test/TestPayment';
+import Membership from './components/membership/Membership';
+import MakePayment from './components/membership/MakePayment';
+import Gallery from './components/gallery/Gallery';
+// Test Routes
 import CheckMember from './components/members/CheckMember';
+import Test from './components/test/Test';
+import StudentLogin from './components/login/StudentLogin';
 
 
 // firebase Configuration
@@ -48,15 +53,21 @@ function App() {
       <div className="App">
         <Navbar />
         <Routes>
+          {/* Open Routes */}
           <Route path="/" element={<Home />} />
           <Route path='/events' element={<ListEvents />} />
           <Route path='/events/:id' element={<EventDetails />} />
-          <Route path='/members' element={<CheckMember />} />
-
+          <Route path='/membership' element={<Membership />} />
+          <Route path="/membership/checkout" element={<MakePayment />} />
+          <Route path='/gallery' element={<Gallery />} />
+          <Route path="/logout" element={<Logout />} />
+          {/* Admin Routes */}
           <Route path="/admin" element={<Login />} />
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
-          <Route path="/logout" element={<Logout />} />
-          <Route path="/test" element={<TestPayment />} />
+          {/* Test Routes */}
+          <Route path="/test2" element={<Test />} />
+          <Route path='/members' element={<CheckMember />} />
+          <Route path="/login" element={<StudentLogin />} />
         </Routes>
         <Footer />
       </div>

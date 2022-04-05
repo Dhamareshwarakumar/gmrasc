@@ -3,7 +3,28 @@ const router = express.Router();
 const https = require('https');
 const { v4: uuidv4 } = require('uuid');
 
-const PaytmChecksum = require('paytmchecksum');
+const PaytmChecksum = require('../../config/paytm_checksum');
+
+
+// @route   POST api/payment/verify
+// @desc    Verify payment Checksum
+// @access  Public
+
+router.post(
+    '/verify',
+    (req, res) => {
+        console.log(req.body);
+        const paytmParams = req.body;
+
+        const checkSumStatus = PaytmChecksum.verifySignature(paytmParams, process.env.PAYTM_MERCHANT_KEY, paytmParams.CHECKSUMHASH);
+
+        res.json({
+            status: checkSumStatus,
+            message: checkSumStatus ? 'Checksum Matched' : 'Checksum Mismatched',
+            data: paytmParams
+        });
+    }
+);
 
 
 router.post(
@@ -16,15 +37,15 @@ router.post(
         paytmParams.body = {
             requestType: "Payment",
             mid: process.env.PAYTM_MERCHANT_ID,
-            websiteName: "WEBSTAGING",
+            websiteName: process.env.PAYTM_WEBSITE,
             orderId: orderId,
-            callbackUrl: "http://localhost:3000/api/payment",
+            callbackUrl: process.env.PAYTM_CALLBACK_URL,
             txnAmount: {
                 value: req.body.amount,
                 currency: "INR",
             },
             userInfo: {
-                custId: req.body.custId,
+                custId: req.body.jntu_number,
                 name: req.body.name,
                 phone: req.body.phone,
                 email: req.body.email,
@@ -42,7 +63,7 @@ router.post(
                 var post_data = JSON.stringify(paytmParams);
 
                 var options = {
-                    hostname: 'securegw-stage.paytm.in',
+                    hostname: 'securegw.paytm.in',
                     port: 443,
                     path: `/theia/api/v1/initiateTransaction?mid=${process.env.PAYTM_MERCHANT_ID}&orderId=${orderId}`,
                     method: 'POST',
@@ -61,44 +82,11 @@ router.post(
                     post_res.on('end', function () {
                         const txnToken = JSON.parse(response).body.txnToken;
 
-                        // Internal Request 
-
-                        var paytmParams2 = {};
-                        paytmParams2.body = {
-                            "mid": process.env.PAYTM_MERCHANT_ID,
-                            "orderId": orderId,
-                            "returnToken": "true"
-                        };
-                        paytmParams2.head = {
-                            "tokenType": "TXN_TOKEN",
-                            "token": txnToken
-                        };
-                        var post_data2 = JSON.stringify(paytmParams2);
-                        var options2 = {
-                            hostname: 'securegw-stage.paytm.in',
-                            port: 443,
-                            path: `/theia/api/v2/fetchPaymentOptions?mid=${process.env.PAYTM_MERCHANT_ID}&orderId=${orderId}`,
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'Content-Length': post_data2.length
-                            }
-                        };
-
-                        var response2 = "";
-                        var post_req2 = https.request(options2, function (post_res2) {
-                            post_res2.on('data', function (chunk) {
-                                response2 += chunk;
-                            });
-
-                            post_res2.on('end', function () {
-                                console.log('Response: ', JSON.parse(response2));
-                                res.send(JSON.parse(response2));
-                            });
+                        res.json({
+                            txnToken: txnToken,
+                            orderId: orderId,
+                            mid: process.env.PAYTM_MERCHANT_ID
                         });
-                        post_req2.write(post_data2);
-                        post_req2.end();
-                        // Internal Request end
                     });
                 });
 
@@ -106,6 +94,10 @@ router.post(
                 post_req.end();
             });
     }
-)
+);
+
+
+
+
 
 module.exports = router;

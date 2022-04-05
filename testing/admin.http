@@ -5,19 +5,19 @@
 @admin = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjowLCJ1c2VybmFtZSI6IjE4MzQxYTA1MzdAZ21yaXQuZWR1LmluIiwiaWQiOiI2MjI2ZjIwNGYzM2I0YTNiYzhhZjU3OTEiLCJpYXQiOjE2NDY5MzcwODgsImV4cCI6MTY0Njk0MDY4OH0.cE6KTxodRE5O4MBpAc_XGpVufJ7Brzb43TtYyfh2MuQ
 
 
-# # Admin Login
-# POST http://127.0.0.1:{{PORT}}/api/admin/ {{version}}
-# Content-Type: application/json
+# Admin Login
+POST http://127.0.0.1:{{PORT}}/api/admin/ {{version}}
+Content-Type: application/json
 
-# {
-#     "username": "18341A0537@gmrit.edu.in",
-#     "password": "iamsuperadmin"
-# }
+{
+    "username": "18341A0537@gmrit.edu.in",
+    "password": "iamsuperadmin"
+}
 
 
-# Read Admin List
-GET http://127.0.0.1:{{PORT}}/api/admin {{version}}
-Authorization: {{superadmin}}
+# # Read Admin List
+# GET http://127.0.0.1:{{PORT}}/api/admin {{version}}
+# Authorization: {{superadmin}}
 
 
 # # Update Admin Password
