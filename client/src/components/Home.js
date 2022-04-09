@@ -94,7 +94,7 @@ const Home = () => {
                         <div className="container-fluid">
                             <div className="row">
                                 <div className="col-12">
-                                    <h1 className="text-center mb-4">Services</h1>
+                                    <h1 className="text-center mb-4"><span className="first-letter">S</span>ervices</h1>
                                 </div>
                                 <div className="col-md-4 my-3">
                                     <div className="card p-2">
@@ -143,7 +143,9 @@ const Home = () => {
                         <div className="container-fluid">
                             <div className="row align-items-center">
                                 <div className="col-12">
-                                    <h1 className="text-center mb-4 text-light">About Us</h1>
+                                    <h1 className="text-center mb-4 text-light">
+                                        <span className="first-letter">C</span>ontact <span className="first-letter">U</span>s
+                                    </h1>
                                 </div>
                                 <div className="col-md-6 my-3">
                                     <img src="/img/contact.svg" alt="contsct" id="contact-img" />

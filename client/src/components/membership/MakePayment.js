@@ -2,6 +2,9 @@ import axios from 'axios';
 import React, { useState, useRef, useEffect } from 'react';
 
 
+import Input from '../common/Input';
+
+
 const MakePayment = () => {
     const [form, setForm] = useState({
         name: '',
@@ -18,6 +21,8 @@ const MakePayment = () => {
         orderId: '',
         mid: ''
     });
+
+    const [errors, setErrors] = useState({});
 
     const handleChange = e => {
         setForm({
@@ -51,8 +56,8 @@ const MakePayment = () => {
                 setTransactionInfo(res.data);
             })
             .catch(err => {
-                console.log(err)
-            })
+                setErrors(err.response.data);
+            });
     }
 
     const hiddenRef = useRef(null);
@@ -72,62 +77,54 @@ const MakePayment = () => {
                                 <h3 className="card-title text-center text-primary">Payment</h3>
                                 <div className="row justify-content-center mb-2">
                                     <div className="col-8">
-                                        <label htmlFor="name" className='form-label'>Name</label>
-                                        <div className="input-group">
-                                            <input
-                                                type="text"
-                                                name='name'
-                                                value={form.name}
-                                                onChange={handleChange}
-                                                className="form-control"
-                                                required
-                                            />
-                                        </div>
+                                        <Input
+                                            label="Name"
+                                            name="name"
+                                            placeholder="Enter your name"
+                                            value={form.name}
+                                            error={errors.name}
+                                            onChange={handleChange}
+                                            type="text"
+                                        />
                                     </div>
                                 </div>
                                 <div className="row justify-content-center mb-2">
                                     <div className="col-8">
-                                        <label htmlFor="phone" className='form-label'>Phone Number</label>
-                                        <div className="input-group">
-                                            <input
-                                                type="text"
-                                                name='phone'
-                                                value={form.phone}
-                                                onChange={handleChange}
-                                                className="form-control"
-                                                required
-                                            />
-                                        </div>
+                                        <Input
+                                            label="Phone Number"
+                                            type='text'
+                                            name="phone"
+                                            placeholder="Enter your phone number"
+                                            value={form.phone}
+                                            error={errors.phone}
+                                            onChange={handleChange}
+                                        />
                                     </div>
                                 </div>
                                 <div className="row justify-content-center mb-2">
                                     <div className="col-8">
-                                        <label htmlFor="email" className='form-label'>Email</label>
-                                        <div className="input-group">
-                                            <input
-                                                type="email"
-                                                name='email'
-                                                value={form.email}
-                                                onChange={handleChange}
-                                                className="form-control"
-                                                required
-                                            />
-                                        </div>
+                                        <Input
+                                            label="Email"
+                                            type='email'
+                                            name="email"
+                                            placeholder="Enter your email"
+                                            value={form.email}
+                                            error={errors.email}
+                                            onChange={handleChange}
+                                        />
                                     </div>
                                 </div>
                                 <div className="row justify-content-center mb-2">
                                     <div className="col-8">
-                                        <label htmlFor="jntu_number" className='form-label'>JNTU Number</label>
-                                        <div className="input-group">
-                                            <input
-                                                type="text"
-                                                name='jntu_number'
-                                                value={form.jntu_number}
-                                                onChange={handleChange}
-                                                className="form-control"
-                                                required
-                                            />
-                                        </div>
+                                        <Input
+                                            label="JNTU Number"
+                                            type='text'
+                                            name="jntu_number"
+                                            placeholder="Enter your JNTU number"
+                                            value={form.jntu_number}
+                                            error={errors.jntu_number}
+                                            onChange={handleChange}
+                                        />
                                     </div>
                                 </div>
                                 <div className="row justify-content-center mb-2">
@@ -139,30 +136,18 @@ const MakePayment = () => {
                                             <option value="2">2</option>
                                             <option value="3">3</option>
                                         </select>
-                                        {/* <div className="input-group">
-                                        <input
-                                            type="years"
-                                            name='years'
-                                            value={form.years}
-                                            onChange={handleChange}
-                                            className="form-control"
-                                            required
-                                        />
-                                    </div> */}
                                     </div>
                                 </div>
                                 <div className="row justify-content-center mb-2">
                                     <div className="col-8">
-                                        <label htmlFor="amount" className='form-label'>Amount</label>
-                                        <div className="input-group">
-                                            <input
-                                                type="text"
-                                                name='amount'
-                                                value={form.amount}
-                                                className="form-control"
-                                                required
-                                            />
-                                        </div>
+                                        <Input
+                                            label="Amount"
+                                            type='text'
+                                            name="amount"
+                                            placeholder="Enter your amount"
+                                            value={form.amount}
+                                            error={errors.amount}
+                                        />
                                     </div>
                                 </div>
                                 <div className="row justify-content-center my-3">

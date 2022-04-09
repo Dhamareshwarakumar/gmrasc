@@ -18,6 +18,7 @@ import Footer from './components/common/Footer';
 import EventDetails from './components/events/EventDetails';
 import Membership from './components/membership/Membership';
 import MakePayment from './components/membership/MakePayment';
+import PaymentSuccess from './components/membership/PaymentSuccess';
 import Gallery from './components/gallery/Gallery';
 // Test Routes
 import CheckMember from './components/members/CheckMember';
@@ -59,6 +60,7 @@ function App() {
           <Route path='/events/:id' element={<EventDetails />} />
           <Route path='/membership' element={<Membership />} />
           <Route path="/membership/checkout" element={<MakePayment />} />
+          <Route path="/payment/success" element={<PaymentSuccess />} />
           <Route path='/gallery' element={<Gallery />} />
           <Route path="/logout" element={<Logout />} />
           {/* Admin Routes */}

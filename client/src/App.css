@@ -44,6 +44,15 @@ footer .bi:hover {
     top: 40px;
 }
 
+/* Payment */
+#payment-success {
+    background: linear-gradient(45deg, #e98d3d, #fbf9fa);
+}
+
+#payment-success .container .row {
+    min-height: 85vh;
+}
+
 /* Events */
 .events {
     background: linear-gradient(45deg, #e98d3d, #fbf9fa);
@@ -86,3 +95,4 @@ footer .bi:hover {
         font-size: 2.2rem;
     }
 }
+

@@ -4,6 +4,10 @@ const https = require('https');
 const { v4: uuidv4 } = require('uuid');
 
 const PaytmChecksum = require('../../config/paytm_checksum');
+const { paymentValidation } = require('../../validations/payment');
+
+// import models
+const Payment = require('../../models/Payment');
 
 
 // @route   POST api/payment/verify
@@ -18,17 +22,38 @@ router.post(
 
         const checkSumStatus = PaytmChecksum.verifySignature(paytmParams, process.env.PAYTM_MERCHANT_KEY, paytmParams.CHECKSUMHASH);
 
-        res.json({
-            status: checkSumStatus,
-            message: checkSumStatus ? 'Checksum Matched' : 'Checksum Mismatched',
-            data: paytmParams
-        });
+        Payment.findOne({ orderId: paytmParams.ORDERID })
+            .then(payment => {
+                if (payment) {
+                    payment.payment_status = checkSumStatus ? 'success' : 'failure';
+                    payment.transaction_id = paytmParams.TXNID;
+                    payment.payment_mode = paytmParams.PAYMENTMODE;
+                    payment.payment_date = paytmParams.TXNDATE;
+
+                    payment.save()
+                        .then(payment => {
+                            if (checkSumStatus) {
+                                return res.redirect('/payment/success');
+                            } else {
+                                return res.json({
+                                    msg: 'Payment failed',
+                                    ...paytmParams
+                                });
+                            }
+                        })
+                        .catch(err => res.json({ err: `INTERNAL SERVER ERROR` }));
+                } else {
+                    return res.json({ err: 'INTERNAL SERVER ERROR' });
+                }
+            })
+            .catch(err => res.json({ err: `INTERNAL SERVER ERROR` }));
     }
 );
 
 
 router.post(
     '/',
+    paymentValidation,
     (req, res) => {
 
         var paytmParams = {};
@@ -90,8 +115,23 @@ router.post(
                     });
                 });
 
-                post_req.write(post_data);
-                post_req.end();
+                // Send Data to Database
+                const newPayment = new Payment({
+                    orderId: orderId,
+                    amount: req.body.amount,
+                    jntu_number: req.body.jntu_number,
+                    name: req.body.name,
+                    phone: req.body.phone,
+                    email: req.body.email,
+                    payment_status: 'Pending'
+                });
+
+                newPayment.save()
+                    .then(payment => {
+                        post_req.write(post_data);
+                        post_req.end();
+                    })
+                    .catch(err => res.json(err));
             });
     }
 );
