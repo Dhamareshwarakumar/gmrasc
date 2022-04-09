@@ -1,0 +1,9 @@
+# Send Message to Discord Channel
+POST http://127.0.0.1:3333/api/discord http/1.1
+Content-Type: application/json
+
+{
+  "name": "Dhamareshwarakumar",
+  "email": "18341A0537@gmrit.edu.in",
+  "query": "This is a testing message"
+}

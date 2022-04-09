@@ -1,10 +1,82 @@
-import React from 'react';
+import React, { useState } from 'react';
+import validator from 'validator';
+import classnames from 'classnames';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 import './Home.css';
+
+import Toast from './common/Toast';
+
 
 
 const Home = () => {
+    const [toastInfo, setToastInfo] = useState({
+        message: ''
+    });
+
+
+    const notify = msg => toast(msg);
+
+    const [contactForm, setContactForm] = useState({
+        name: '',
+        email: '',
+        query: ''
+    });
+
+    const [contactFormErrors, setContactFormErrors] = useState({});
+
+    const handleContactForm = e => {
+        e.preventDefault();
+        let errors = {};
+
+
+        // Validate Name
+        if (contactForm.name.length === 0) {
+            errors.name = "Name Should not be empty";
+        }
+
+        // Validate Email
+        if (!validator.isEmail(contactForm.email)) {
+            errors.email = "Email is not valid";
+        }
+
+        // Validating Query
+        if (!validator.isLength(contactForm.query, { min: 10 })) {
+            errors.query = "Query should be atleast 10 characters long";
+        }
+
+        if (Object.keys(errors).length === 0) {
+            axios.post('/api/discord', contactForm)
+                .then(res => {
+                    setToastInfo({
+                        message: 'Query Sent Successfully'
+                    });
+                    notify(toastInfo.message);
+                    setContactForm({
+                        name: '',
+                        email: '',
+                        query: ''
+                    });
+                    setContactFormErrors({});
+                })
+                .catch(err => {
+                    setContactFormErrors(err.response.data);
+                });
+        } else {
+            setContactFormErrors(errors);
+        }
+    };
+
+    const handleContactFormChange = e => {
+        setContactForm({
+            ...contactForm,
+            [e.target.name]: e.target.value
+        });
+    };
+
     return (
         <>
+            <Toast />
             {/* Landing Section */}
             <div className="home-landing-img">
                 <div className="mask"></div>
@@ -77,34 +149,60 @@ const Home = () => {
                                     <img src="/img/contact.svg" alt="contsct" id="contact-img" />
                                 </div>
                                 <div className="col-md-6 my-3">
-                                    <form>
+                                    <form onSubmit={handleContactForm}>
                                         <div className="form-group my-3">
                                             <label htmlFor="name" className='text-light'>Name</label>
                                             <input
                                                 type="text"
-                                                className="form-control"
-                                                id="name"
+                                                className={classnames(
+                                                    "form-control", {
+                                                    'is-invalid': contactFormErrors.name
+                                                }
+                                                )}
+                                                name="name"
                                                 placeholder="Enter your name"
+                                                value={contactForm.name}
+                                                onChange={handleContactFormChange}
                                             />
+                                            {contactFormErrors.name && (<div className="invalid-feedback">{contactFormErrors.name}</div>)}
                                         </div>
 
                                         <div className="form-group my-3">
                                             <label htmlFor="email" className='text-light'>Email</label>
                                             <input
                                                 type="email"
-                                                className="form-control"
-                                                id="email"
+                                                className={classnames(
+                                                    "form-control", {
+                                                    'is-invalid': contactFormErrors.email
+                                                }
+                                                )}
+                                                name="email"
                                                 placeholder="Enter your Email"
+                                                value={contactForm.email}
+                                                onChange={handleContactFormChange}
                                             />
+                                            {contactFormErrors.email && (<div className="invalid-feedback">{contactFormErrors.email}</div>)}
                                         </div>
 
                                         <div className="form-group my-3">
                                             <label htmlFor="query" className='text-light'>Query</label>
                                             <textarea
-                                                className="form-control"
-                                                id="query"
-                                                placeholder="Enter your Email"
+                                                className={classnames(
+                                                    'form-control', {
+                                                    'is-invalid': contactFormErrors.query
+                                                }
+                                                )}
+                                                name="query"
+                                                placeholder="What is your Query...!"
+                                                value={contactForm.query}
+                                                onChange={handleContactFormChange}
                                             ></textarea>
+                                            {contactFormErrors.query && (<div className="invalid-feedback">{contactFormErrors.query}</div>)}
+                                        </div>
+
+                                        <div className="d-grid form-group my-3">
+                                            <button type="submit" className="btn btn-info">Submit</button>
+                                            {/* <button type="button" className="btn btn-warning" onClick={notify}>Submit</button> */}
                                         </div>
                                     </form>
                                 </div>

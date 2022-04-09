@@ -29,6 +29,7 @@ app.use('/api/events', require('./routes/api/events'));
 app.use('/api/payment', require('./routes/api/payment'));
 app.use('/api/members', require('./routes/api/members'));
 app.use('/api/gallery', require('./routes/api/gallery'));
+app.use('/api/discord', require('./routes/api/discord'));
 // Testing
 app.use('/api/branches', require('./routes/api/branches'));
 

@@ -1,13 +1,30 @@
-import React from 'react'
+import React from 'react';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Toast = props => {
-    return (
+    // const notify = () => toast(props.message);
 
-        <div className={"alert alert-" + props.type + " alert-dismissible fade show"} role="alert">
-            {props.msg}
-            <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    // useEffect(() => {
+    //     notify();
+    // }, [])
+
+
+    return (
+        <div>
+            <ToastContainer
+                position="bottom-right"
+                autoClose={4000}
+                hideProgressBar={true}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+            />
         </div>
-    )
+    );
 }
 
 export default Toast
