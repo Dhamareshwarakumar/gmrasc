@@ -2,12 +2,37 @@ const express = require('express');
 const router = express.Router();
 const https = require('https');
 const { v4: uuidv4 } = require('uuid');
+const passport = require('passport');
 
 const PaytmChecksum = require('../../config/paytm_checksum');
 const { paymentValidation } = require('../../validations/payment');
 
 // import models
 const Payment = require('../../models/Payment');
+
+// import Validations
+const { checkAdmin } = require('../../validations/admin');
+
+
+// @route   GET api/payment/
+// @desc    Get all payments Info
+// @access  Admin
+router.get(
+    '/',
+    passport.authenticate('jwt', { session: false }),
+    checkAdmin,
+    (req, res) => {
+        Payment.find()
+            .then(payments => {
+                if (payments) {
+                    return res.json(payments);
+                } else {
+                    return res.status(404).json({ msg: 'No Payments Found' });
+                }
+            })
+            .catch(err => res.status(500).json({ err: `Internal Server Error` }));
+    }
+);
 
 
 // @route   POST api/payment/verify

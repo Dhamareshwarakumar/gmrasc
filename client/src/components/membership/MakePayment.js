@@ -24,6 +24,26 @@ const MakePayment = () => {
 
     const [errors, setErrors] = useState({});
 
+    const [amounts, setAmounts] = useState({
+        '1': '1',
+        '2': '2',
+        '3': '3'
+    });
+
+    useEffect(() => {
+        axios.get('/api/membershipFee')
+            .then(res => {
+                const current_academic_year = res.data[0].current_academic_year;
+                const fee = res.data.filter(fee => fee.academic_year === current_academic_year)[0];
+                setAmounts({
+                    '1': fee.one_year,
+                    '2': fee.two_years,
+                    '3': fee.three_years
+                });
+            })
+            .catch(err => console.log(err));
+    }, []);
+
     const handleChange = e => {
         setForm({
             ...form,
@@ -32,16 +52,6 @@ const MakePayment = () => {
     };
 
     const handleYears = e => {
-        const amounts = {
-            '1': '1',
-            '2': '2',
-            '3': '3'
-        }
-        // const amounts = {
-        //     '1': '300',
-        //     '2': '500',
-        //     '3': '700'
-        // }
         setForm({
             ...form,
             years: e.target.value,
@@ -132,9 +142,9 @@ const MakePayment = () => {
                                         <label htmlFor="years" className='form-label'>No Of Years</label>
                                         <select className="form-select" onChange={handleYears}>
                                             <option selected>select menu</option>
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
+                                            {Object.keys(amounts).map(key => (
+                                                <option key={key} value={key}>{key}</option>
+                                            ))}
                                         </select>
                                     </div>
                                 </div>

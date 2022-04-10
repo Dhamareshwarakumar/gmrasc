@@ -11,6 +11,8 @@ import ListEvents from '../events/ListEvents';
 import ViewEvents from './ViewEvents';
 import AddEvent from '../events/AddEvent';
 import EditEvent from '../events/EditEvent';
+import MembershipFee from './MembershipFee';
+import PaymentsInfo from './PaymentsInfo';
 
 
 const AdminDashboard = props => {
@@ -32,7 +34,9 @@ const AdminDashboard = props => {
         updatePassword: false,
         createAdmin: false,
         viewevents: false,
-        addevent: false
+        addevent: false,
+        membershipfee: false,
+        paymentsinfo: false
     }
     const [sidebar, setSidebar] = useState(initialState);
     const [eventId, setEventId] = useState(null);
@@ -68,8 +72,9 @@ const AdminDashboard = props => {
                         {props.auth.user.role === 0 && (<button id="createAdmin" className="btn btn-primary border" onClick={handleSidebarClick}>Create Admin (Super Admin)</button>)}
 
                         <button id="viewevents" className="btn btn-primary border" onClick={handleSidebarClick}>View Events</button>
-
                         <button id="addevent" className="btn btn-primary border" onClick={handleSidebarClick}>Add Event</button>
+                        <button id="membershipfee" className="btn btn-primary border" onClick={handleSidebarClick}>Membership Fee</button>
+                        <button id="paymentsinfo" className="btn btn-primary border" onClick={handleSidebarClick}>Payments</button>
                     </div>
                 </div>
                 <div className="col-10">
@@ -80,6 +85,8 @@ const AdminDashboard = props => {
                     {sidebar.viewevents && <ViewEvents handleEventEdit={handleEventEdit} />}
                     {sidebar.addevent && <AddEvent />}
                     {sidebar.editevent && <EditEvent id={eventId} />}
+                    {sidebar.membershipfee && <MembershipFee />}
+                    {sidebar.paymentsinfo && <PaymentsInfo />}
                 </div>
             </div>
         </div>

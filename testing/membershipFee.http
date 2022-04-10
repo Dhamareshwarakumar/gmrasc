@@ -1,0 +1,52 @@
+@version = HTTP/1.1
+@PORT = 3333
+
+@admin = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjowLCJ1c2VybmFtZSI6IjE4MzQxYTA1MzdAZ21yaXQuZWR1LmluIiwiaWQiOiI2MjMyMTVlYTUzZWY1YTI3MTU4Njg5ZjgiLCJpYXQiOjE2NDk1NjUxMTQsImV4cCI6MTY0OTU2ODcxNH0.cQ34ErciJMhNcbxFktwbc2bFCkHN0J5FcpLeiE-cVzo
+
+
+# # Admin Login
+# POST http://127.0.0.1:{{PORT}}/api/admin/ {{version}}
+# Content-Type: application/json
+
+# {
+#     "username": "18341A0537@gmrit.edu.in",
+#     "password": "iamsuperadmin"
+# }
+
+
+# # Get Membership Fee Info All Years
+# GET http://127.0.0.1:{{PORT}}/api/membershipFee {{version}}
+# Authorization: {{admin}}
+
+
+# # Get particular year membership fee info
+# GET http://127.0.0.1:{{PORT}}/api/membershipFee/2020-2021 {{version}}
+# Authorization: {{admin}}
+
+
+# # Add Membership Fee Info
+# POST http://127.0.0.1:{{PORT}}/api/membershipFee {{version}}
+# Authorization: {{admin}}
+# Content-Type: application/json
+
+# {
+#     "academic_year": "2021 - 2022",
+#     "one_year": 1,
+#     "two_years": 2,
+#     "three_years": 3,
+#     "current_academic_year": "2021 - 2022"
+# }
+
+
+# Update Membership Fee Info
+PUT http://127.0.0.1:{{PORT}}/api/membershipFee/62522851ca947ec771ac8247 {{version}}
+Authorization: {{admin}}
+Content-Type: application/json
+
+{
+    "academic_year": "2020 - 2021",
+    "one_year": 11,
+    "two_years": 22,
+    "three_years": 33,
+    "current_academic_year": "2021 - 2022"
+}

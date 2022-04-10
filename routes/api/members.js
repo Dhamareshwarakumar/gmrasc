@@ -46,7 +46,7 @@ router.get(
 
 // @route   POST api/members
 // @desc    Create a new member
-// @access  Admin
+// @access  Admin | Member
 router.post(
     '/',
     passport.authenticate('jwt', { session: false }),
